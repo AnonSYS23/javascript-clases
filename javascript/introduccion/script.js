@@ -1,94 +1,217 @@
-// Age Verification Form
-const ageForm = document.getElementById("ageForm");
-ageForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  
-  const birthYearInput = event.target.querySelector("#birthYear");
-  const birthYear = Number(birthYearInput.value);
-  
-  const currentYear = new Date().getFullYear();
-  const age = currentYear - birthYear;
-  
-  if (age >= 18) {
-    alert("You are old enough to continue");
-    
-    const beerForm = document.getElementById("beerFrom");
-    beerForm.classList.remove("hidden");
-  } else {
-    alert("You are not old enough to continue");
-    birthYearInput.focus();
-  }
-});
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
-// Beer Form
-const beerForm = document.getElementById("beerFrom");
-beerForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+// Variables del jugador
+const playerSize = 20;
+let playerX = canvas.width / 2;
+let playerY = canvas.height - playerSize - 10;
+let playerSpeed = 5;
+let playerWeapon = "normal";
+let playerHealth = 100;
 
-  const beerChooseInput = event.target.querySelector("#beerChoose");
-  const beerChoose = beerChooseInput.value.toLowerCase().trim();
+// Variables del jefe enemigo
+const bossSize = 50;
+let bossX = canvas.width / 2 - bossSize / 2;
+let bossY = 50;
+let bossSpeed = 2;
+let bossHealth = 200;
 
-  if (beerChoose === "yes" || beerChoose === "no") {
-    alert("Your answer has been recorded");
+// Variables de las balas
+let playerBullets = [];
+let bossBullets = [];
 
-    const drunkedForm = document.getElementById("drunkedForm");
-    drunkedForm.classList.remove("hidden");
-  } else {
-    alert("Please enter a valid response (Yes or No)");
-    beerChooseInput.focus();
-  }
-});
+// Detectar entrada del teclado
+let leftPressed = false;
+let rightPressed = false;
+let spacePressed = false;
+document.addEventListener("keydown", keyDownHandler);
+document.addEventListener("keyup", keyUpHandler);
 
-// Drunk Form
-const drunkedForm = document.getElementById("drunkedForm");
-drunkedForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+function keyDownHandler(event) {
+    if (event.key === "ArrowLeft") {
+        leftPressed = true;
+    } else if (event.key === "ArrowRight") {
+        rightPressed = true;
+    } else if (event.key === " ") {
+        spacePressed = true;
+    }
+}
 
-  const drunkChooseInput = event.target.querySelector("#drunkChoose");
-  const drunkChoose = drunkChooseInput.value.toLowerCase().trim();
+function keyUpHandler(event) {
+    if (event.key === "ArrowLeft") {
+        leftPressed = false;
+    } else if (event.key === "ArrowRight") {
+        rightPressed = false;
+    } else if (event.key === " ") {
+        spacePressed = false;
+    }
+}
 
-  if (drunkChoose === "yes" || drunkChoose === "no" || drunkChoose === "") {
-    alert("Your answer has been recorded");
+// Actualizar posición del jugador
+function movePlayer() {
+    if (leftPressed && playerX > 0) {
+        playerX -= playerSpeed;
+    } else if (rightPressed && playerX + playerSize < canvas.width) {
+        playerX += playerSpeed;
+    }
 
-    const peopleForm = document.getElementById("peopleForm");
-    peopleForm.classList.remove("hidden");
-  } else {
-    alert("Please enter a valid response (Yes or No)");
-    drunkChooseInput.focus();
-  }
-});
+    if (spacePressed) {
+        if (playerWeapon === "normal") {
+            shootPlayerBullet(playerX + playerSize / 2, playerY);
+        } else if (playerWeapon === "spread") {
+            shootPlayerBullet(playerX + playerSize / 2 - 10, playerY);
+            shootPlayerBullet(playerX + playerSize / 2, playerY);
+            shootPlayerBullet(playerX + playerSize / 2 + 10, playerY);
+        }
+    }
+}
 
-// People Form
-const peopleForm = document.getElementById("peopleForm");
-peopleForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+// Actualizar posición del jefe enemigo
+function moveBoss() {
+    if (bossX + bossSize > canvas.width || bossX < 0) {
+        bossSpeed = -bossSpeed;
+    }
 
-  const peopleNumberInput = event.target.querySelector("#peopleNumber");
-  const peopleNumber = Number(peopleNumberInput.value);
+    bossX += bossSpeed;
+}
 
-  if (peopleNumber >= 0) {
-    alert("Your answer has been recorded");
+// Actualizar posición de las balas
+function moveBullets() {
+    playerBullets = playerBullets.filter(bullet => bullet.y > 0);
+    bossBullets = bossBullets.filter(bullet => bullet.y < canvas.height);
 
-    const sleepForm = document.getElementById("sleepForm");
-    sleepForm.classList.remove("hidden");
-  } else {
-    alert("Please enter a valid number");
-    peopleNumberInput.focus();
-  }
-});
+    playerBullets.forEach(bullet => {
+        bullet.y -= bullet.speed;
+    });
 
-// Sleep Form
-const sleepForm = document.getElementById("sleepForm");
-sleepForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+    bossBullets.forEach(bullet => {
+        bullet.y += bullet.speed;
+    });
+}
 
-  const sleepHoursInput = event.target.querySelector("#sleepHours");
-  const sleepHours = Number(sleepHoursInput.value);
+// Dibujar el jugador
+function drawPlayer() {
+    ctx.beginPath();
+    ctx.rect(playerX, playerY, playerSize, playerSize);
+    ctx.fillStyle = "blue";
+    ctx.fill();
+    ctx.closePath();
+}
 
-  if (sleepHours >= 0 && sleepHours <= 24) {
-    alert("Your form has been successfully completed");
-  } else {
-    alert("Please enter a valid time in hours (0-24)");
-    sleepHoursInput.focus();
-  }
-});
+// Dibujar el jefe enemigo
+function drawBoss() {
+    ctx.beginPath();
+    ctx.rect(bossX, bossY, bossSize, bossSize);
+    ctx.fillStyle = "red";
+    ctx.fill();
+    ctx.closePath();
+}
+
+// Dibujar las balas
+function drawBullets() {
+    playerBullets.forEach(bullet => {
+        ctx.beginPath();
+        ctx.rect(bullet.x, bullet.y, bullet.size, bullet.size);
+        ctx.fillStyle = "blue";
+        ctx.fill();
+        ctx.closePath();
+    });
+
+    bossBullets.forEach(bullet => {
+        ctx.beginPath();
+        ctx.rect(bullet.x, bullet.y, bullet.size, bullet.size);
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.closePath();
+    });
+}
+
+// Dibujar barra de vida
+function drawHealthBars() {
+    ctx.fillStyle = "blue";
+    ctx.fillRect(10, 10, playerHealth, 10);
+
+    ctx.fillStyle = "red";
+    ctx.fillRect(10, 30, bossHealth, 10);
+}
+
+// Detectar colisiones
+function detectCollisions() {
+    playerBullets.forEach(playerBullet => {
+        if (
+            playerBullet.x > bossX &&
+            playerBullet.x < bossX + bossSize &&
+            playerBullet.y > bossY &&
+            playerBullet.y < bossY + bossSize
+        ) {
+            bossHealth -= 10;
+            playerBullets = playerBullets.filter(bullet => bullet !== playerBullet);
+        }
+    });
+
+    bossBullets.forEach(bossBullet => {
+        if (
+            bossBullet.x > playerX &&
+            bossBullet.x < playerX + playerSize &&
+            bossBullet.y > playerY &&
+            bossBullet.y < playerY + playerSize
+        ) {
+            playerHealth -= 10;
+            bossBullets = bossBullets.filter(bullet => bullet !== bossBullet);
+        }
+    });
+}
+
+// Generar balas del jugador
+function shootPlayerBullet(x, y) {
+    const bullet = {
+        x: x,
+        y: y,
+        size: 5,
+        speed: 5
+    };
+    playerBullets.push(bullet);
+}
+
+// Generar balas del jefe enemigo
+function shootBossBullet() {
+    const bullet = {
+        x: bossX + bossSize / 2,
+        y: bossY + bossSize,
+        size: 5,
+        speed: 2
+    };
+    bossBullets.push(bullet);
+}
+
+// Actualizar el juego en cada fotograma
+function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    movePlayer();
+    moveBoss();
+    moveBullets();
+    detectCollisions();
+
+    drawPlayer();
+    drawBoss();
+    drawBullets();
+    drawHealthBars();
+
+    if (bossHealth <= 0) {
+        alert("¡Has derrotado al jefe!");
+        document.location.reload();
+    } else if (playerHealth <= 0) {
+        alert("¡Has perdido!");
+        document.location.reload();
+    } else {
+        requestAnimationFrame(update);
+    }
+
+    // Generar balas del jefe en intervalos de tiempo
+    if (Math.random() < 0.02) {
+        shootBossBullet();
+    }
+}
+
+update();

@@ -1,39 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Age Verifier</title>
-  <link rel="stylesheet" type="text/css" href="/style.css">
+    <title>Bullet Hell</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Age Verifier</h1>
-    <form id="ageForm">
-      <label for="birthYear">Enter your birth year:</label>
-      <input type="number" id="birthYear" required>
-      <button type="submit">Verify</button>
-    </form>
-    <form id="beerFrom">
-        <label for="choose">Do you want to drink beer?</label>
-        <input type="text" id="beerChoose" required>
-        <button type="submit">Continue</button>
-    </form>
-    <form id="drunkedForm">
-        <label for="drunk">Are you drunk?</label>
-        <input type="text" id="drunkChoose">
-        <button type="submit">Coutinue</button>
-    </form>
-    <form id="peopleForm">
-        <label for="people">How many friends are with you?</label>
-        <input type="number" id="peopleNumber">
-        <button type="submit">Continue</button>
-    </form>
-    <form id="sleepForm">
-        <label for="sleep">In what hour will you sleep?</label>
-        <input type="number" id="sleepHours">
-        <button type="submit">Finalize</button>
-    </form>
-    </form>
-  </div>
-  <script src="/javascript/introduccion/script.js" defer></script>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script src="/javascript/introduccion/script.js"></script>
 </body>
 </html>
