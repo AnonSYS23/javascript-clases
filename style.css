@@ -1,5 +1,82 @@
-#gameCanvas {
-  background-color: black;
-  display: block;
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 960px;
   margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilos de la barra de navegación */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Estilos de la sección de inicio */
+#inicio {
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 50px;
+}
+
+/* Estilos de la sección de portafolio */
+#portafolio {
+  background-color: #fff;
+  padding: 50px;
+}
+
+.image-gallery img {
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+/* Estilos de la sección de texto */
+#texto {
+  background-color: #f2f2f2;
+  padding: 50px;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/* Estilos de la sección de contacto */
+#contacto {
+  background-color: #fff;
+  padding: 50px;
+}
+
+/* Estilos del footer */
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
 }
