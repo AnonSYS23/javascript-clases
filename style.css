@@ -1,18 +1,5 @@
-#game-container {
-  position: relative;
-  width: 600px;
-  height: 400px;
-  border: 1px solid black;
-}
-#player {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: blue;
-}
-#enemy {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: red;
+#gameCanvas {
+  background-color: black;
+  display: block;
+  margin: 0 auto;
 }
