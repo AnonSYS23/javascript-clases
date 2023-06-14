@@ -1,65 +1,36 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Portafolio</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="/script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Científica</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Portafolio</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
-    </header>
+  <div class="calculator">
+    <input type="text" id="result" disabled>
+    <div class="keypad">
+      <button onclick="clearResult()">C</button>
+      <button onclick="deleteLast()">←</button>
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('/')">/</button>
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('*')">*</button>
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="appendValue('-')">-</button>
+      <button onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="appendValue('+')">+</button>
+    </div>
+  </div>
 
-    <section id="inicio">
-        <div class="container">
-            <h1>Bienvenido a mi Portafolio</h1>
-            <p>Soy [Tu Nombre], un desarrollador web apasionado por crear soluciones innovadoras.</p>
-            <a href="https://github.com/AnonSYS23" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://twitter.com/AnonSYS23" target="_blank" rel="noopener noreferrer">Red Social</a>
-        </div>
-    </section>
-
-    <section id="portafolio">
-        <div class="container">
-            <h2>Portafolio</h2>
-            <div class="image-gallery">
-                <img src="/" alt="Imagen 1">
-                <img src="imagen2.jpg" alt="Imagen 2">
-                <img src="imagen3.jpg" alt="Imagen 3">
-            </div>
-        </div>
-    </section>
-
-    <section id="texto">
-        <div class="container">
-            <h2>Soy Experto en HTML, CSS y JS</h2>
-            <p>Acepto transeferencia economica por peticion</p>
-            <p class="highlight">Te enseño como programar En HTML</p>
-            <p class="underline">Hago streams en Kick</p>
-        </div>
-    </section>
-
-    <section id="contacto">
-        <div class="container">
-            <h2>Contacto</h2>
-            <p>Puedes contactarme por medio de:</p>
-            <ul>
-                <li>Email: josemanuelibanez2020@gmail.com</li>
-                <li>Teléfono: 305 285 6679</li>
-            </ul>
-        </div>
-    </section>
-
-    <footer>
-        <p>Derechos de autor &copy; 2023 Jose Ibañez</p>
-    </footer>
+  <script src="/script.js"></script>
 </body>
 </html>
