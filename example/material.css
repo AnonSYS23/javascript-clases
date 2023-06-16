@@ -1,0 +1,48 @@
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Login container */
+.container {
+  width: 500px;
+  margin: 0 auto;
+}
+
+/* Login form */
+.login-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+/* Username input */
+input[name="username"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+/* Password input */
+input[name="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+/* Login button */
+input[type="submit"] {
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+}
